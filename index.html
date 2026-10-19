@@ -1,42 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr" manifest="horloge.appcache">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Test horloge hors connexion</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Mon horloge</title>
 <style>
-html,body{margin:0;width:100%;height:100%;background:#050608;color:#e5e9ef;font-family:Arial,Helvetica,sans-serif;text-align:center}
-#screen{position:absolute;top:0;left:0;right:0;bottom:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center}
-#time{font-size:19vw;font-weight:bold;line-height:1.1}
-#status{margin-top:25px;font-size:18px;color:transparent;padding:0 12px}
-#hint{margin-top:14px;font-size:14px;color:#a3a3a3;padding:0 18px}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+body{font-family:Arial,sans-serif;background:#ffffff}
+.clock{position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;font-family:Arial,sans-serif;overflow:hidden;background:#ffffff;color:#1d493c}
+.z{position:absolute;left:0;width:100%;white-space:nowrap;font-weight:normal}
+.z3{font-weight:bold}
 </style>
 </head>
 <body>
-<div id="screen"><div id="time">--:--</div><div id="status">Initialisation...</div><div id="hint">Test hors connexion pour ancien iPad</div></div>
+<div class="clock" id="clock"><div class="z z1" id="z1"></div><div class="z z2" id="z2"></div><div class="z z3" id="z3"></div><div class="z z4" id="z4"></div></div>
 <script>
 (function(){
-  var time = document.getElementById('time');
-  var status = document.getElementById('status');
-  function tick(){var d=new Date();var h=d.getHours(),m=d.getMinutes();time.innerHTML=(h<10?'0':'')+h+':'+(m<10?'0':'')+m;}
-  tick();setInterval(tick,1000);
-  if(window.applicationCache){
-    var cache=window.applicationCache;
-    function state(){
-      var s=cache.status;
-      if(s===0){status.innerHTML='Cache non disponible';}
-      else if(s===1){status.innerHTML='Cache hors connexion pret';}
-      else if(s===2||s===3){status.innerHTML='Enregistrement en cours...';}
-      else if(s===4){status.innerHTML='Mise a jour prete';}
-      else if(s===5){status.innerHTML='Cache ancien utilise';}
-    }
-    cache.addEventListener('cached',function(){status.innerHTML='Cache hors connexion pret';},false);
-    cache.addEventListener('noupdate',state,false);
-    cache.addEventListener('updateready',state,false);
-    cache.addEventListener('downloading',state,false);
-    cache.addEventListener('error',function(){status.innerHTML='Erreur de mise en cache';},false);
-    state();
-  }else{status.innerHTML='Cache non pris en charge';}
+'use strict';
+var config={base:135,tab:35,nightBrightness:40};
+function fitClock(node,base,tab){
+ var H=node.clientHeight,W=node.clientWidth;if(!H||!W)return 0;
+ var k=H/768, z1=node.children[0],z2=node.children[1],z3=node.children[2],z4=node.children[3];
+ var a=base*k,b=a*2/3,g=tab*k;
+ /* Si les paramètres extrêmes dépassent l'écran, réduction commune pour éviter tout débordement. */
+ var minHour=12*k;var required=a+2*b+4*g+minHour;
+ if(required>H){var factor=H/required;a*=factor;b*=factor;g*=factor;}
+ var available=H-(a+2*b+4*g);
+ var size=Math.max(1,available);
+ /* Limite de largeur calculée avec la police réellement utilisée. */
+ var canvas=fitClock.canvas||(fitClock.canvas=document.createElement('canvas'));
+ var ctx=canvas.getContext('2d');
+ ctx.font='bold 100px Arial';var measured=ctx.measureText(z3.textContent).width;
+ if(measured>0)size=Math.min(size,(W*0.95)*100/measured);
+ /* Le texte le plus long des autres zones doit aussi tenir dans la largeur. */
+ var nodes=[z1,z2,z3,z4], sizes=[a,b,size,b];
+ for(var j=0;j<4;j++){
+   ctx.font=(j===2?'bold ':'')+'100px Arial';var width=ctx.measureText(nodes[j].textContent).width;
+   if(width>0)sizes[j]=Math.min(sizes[j],W*0.95*100/width);
+ }
+ a=sizes[0];b=Math.min(sizes[1],sizes[3]);size=sizes[2];
+ /* Les écarts TAB restent exacts. Le surplus éventuel (limite de largeur) est partagé en haut et en bas. */
+ var used=a+2*b+size+3*g;
+ var outer=(H-used)/2;
+ if(outer<g/2)outer=g/2;
+ var top=outer,heights=[a,b,size,b];
+ for(var i=0;i<4;i++){
+   nodes[i].style.fontSize=heights[i]+'px';
+   nodes[i].style.height=heights[i]+'px';
+   nodes[i].style.lineHeight=heights[i]+'px';
+   nodes[i].style.top=top+'px';
+   top+=heights[i]+g;
+ }
+ return Math.round(size/k);
+}
+function el(id){return document.getElementById(id);}
+var days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+var months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+function update(){
+ var d=new Date(),h=d.getHours(),m=d.getMinutes();
+ var night=h>=21||h<7;
+ var period=h<7?'Nuit':h<12?'Matin':h<13?'Midi':h<18?'Après-midi':h<21?'Soirée':'Nuit';
+ el('z1').textContent=days[d.getDay()];
+ el('z2').textContent=period;
+ el('z3').textContent=h+':'+(m<10?'0':'')+m;
+ el('z4').textContent=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+ var clock=el('clock');
+ clock.style.backgroundColor=night?'#183153':'#ffffff';
+ clock.style.color=night?'#b8c5d6':'#1d493c';
+ var brightness='brightness('+(night?config.nightBrightness:100)/100+')';
+ clock.style.webkitFilter=brightness;
+ clock.style.filter=brightness;
+ fitClock(clock,config.base,config.tab);
+}
+window.addEventListener('resize',update);
+update();setInterval(update,1000);
 })();
 </script>
 </body>
