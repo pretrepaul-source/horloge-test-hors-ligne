@@ -1,58 +1,42 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" manifest="horloge.appcache">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>Mon horloge iPad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Test horloge hors connexion</title>
 <style>
-html,body{height:100%;width:100%;margin:0;background:#090b0d;color:#bdcbd7;font-family:Arial,Helvetica,sans-serif;overflow:hidden;-webkit-text-size-adjust:100%}
-*{-webkit-box-sizing:border-box;box-sizing:border-box}
-#clock{position:absolute;top:0;bottom:0;left:0;right:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-justify-content:space-evenly;justify-content:space-evenly;-webkit-align-items:center;align-items:center;padding:4vh 2vw;text-align:center}
-.line{width:100%;white-space:nowrap;line-height:1.08;overflow:visible}
-#day{font-size:10vw;font-weight:400}#period{font-size:9vw;font-weight:400}#time{font-size:13vw;font-weight:700}#date{font-size:7.5vw;font-weight:400}
-#settingsButton{position:fixed;right:10px;top:10px;border:1px solid #56616a;border-radius:8px;background:#222a30;color:#fff;padding:10px 13px;font-size:16px;z-index:5;opacity:.72}
-#panel{display:none;position:fixed;z-index:10;right:8px;top:8px;bottom:8px;width:340px;max-width:calc(100% - 16px);overflow:auto;background:#1d252b;border:1px solid #667580;border-radius:12px;color:white;padding:15px;box-shadow:0 0 0 100vmax rgba(0,0,0,.55);-webkit-overflow-scrolling:touch}
-#panel h2{font-size:21px;margin:0 0 12px}#panel p{font-size:13px;color:#d2d9dd;margin:10px 0}
-.control{border-top:1px solid #45515b;padding:9px 0}.control label{display:block;font-size:17px;margin-bottom:7px}.controls{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between}
-button{cursor:pointer;-webkit-appearance:none;appearance:none} .step{font-size:25px;min-width:62px;height:42px;border-radius:8px;background:#394a56;color:white;border:1px solid #788a96} .value{font-size:17px} .action{padding:11px;border-radius:7px;border:1px solid #9aabb7;background:#344854;color:white;font-size:17px;margin:7px 5px 3px 0}
-#close{background:#cbd8e0;color:#14212a;font-weight:bold} .hint{font-size:12px;color:#b9c5cc}
-@media(orientation:portrait){#day{font-size:12vw}#period{font-size:11vw}#time{font-size:17vw}#date{font-size:8vw}}
+html,body{margin:0;width:100%;height:100%;background:#050608;color:#e5e9ef;font-family:Arial,Helvetica,sans-serif;text-align:center}
+#screen{position:absolute;top:0;left:0;right:0;bottom:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center}
+#time{font-size:19vw;font-weight:bold;line-height:1.1}
+#status{margin-top:25px;font-size:18px;color:#a9c3d8;padding:0 12px}
+#hint{margin-top:14px;font-size:14px;color:#a3a3a3;padding:0 18px}
 </style>
 </head>
 <body>
-<div id="clock"><div id="day" class="line">Dimanche</div><div id="period" class="line">Matin</div><div id="time" class="line">10:54</div><div id="date" class="line">18 octobre 2026</div></div>
-<button id="settingsButton" onclick="showSettings()">⚙ Réglages</button>
-<div id="panel">
-<h2>Réglages de l'horloge</h2>
-<p>Agrandissez chaque ligne avec + et réduisez-la avec −. Les modifications sont visibles immédiatement.</p>
-<div class="control"><label>Jour (Dimanche)</label><div class="controls"><button class="step" onclick="change('day',-1)">−</button><span id="vday" class="value"></span><button class="step" onclick="change('day',1)">+</button></div></div>
-<div class="control"><label>Moment (Matin)</label><div class="controls"><button class="step" onclick="change('period',-1)">−</button><span id="vperiod" class="value"></span><button class="step" onclick="change('period',1)">+</button></div></div>
-<div class="control"><label>Heure (10:54)</label><div class="controls"><button class="step" onclick="change('time',-1)">−</button><span id="vtime" class="value"></span><button class="step" onclick="change('time',1)">+</button></div></div>
-<div class="control"><label>Date (18 octobre 2026)</label><div class="controls"><button class="step" onclick="change('date',-1)">−</button><span id="vdate" class="value"></span><button class="step" onclick="change('date',1)">+</button></div></div>
-<div class="control"><label>Espacement entre les lignes</label><div class="controls"><button class="step" onclick="change('gap',-1)">−</button><span id="vgap" class="value"></span><button class="step" onclick="change('gap',1)">+</button></div></div>
-<button class="action" id="close" onclick="hideSettings()">Terminé</button><button class="action" onclick="resetSettings()">Réinitialiser</button>
-<p class="hint">Les réglages sont mémorisés sur cet iPad si Safari autorise le stockage local. Si le texte se chevauche, diminuez une ou plusieurs tailles. La luminosité se règle dans les réglages de l'iPad.</p>
-</div>
+<div id="screen"><div id="time">--:--</div><div id="status">Initialisation...</div><div id="hint">Test hors connexion pour ancien iPad</div></div>
 <script>
 (function(){
- var defaults={day:10,period:9,time:13,date:7.5,gap:4};
- var values={};var k;
- for(k in defaults){if(defaults.hasOwnProperty(k)){values[k]=defaults[k];}}
- try{var saved=JSON.parse(localStorage.getItem('horloge-ipad-reglages')||'null');if(saved){for(k in defaults){if(defaults.hasOwnProperty(k)&&typeof saved[k]==='number'&&isFinite(saved[k]))values[k]=saved[k];}}}catch(e){}
- function persist(){try{localStorage.setItem('horloge-ipad-reglages',JSON.stringify(values));}catch(e){}}
- function apply(){var keys=['day','period','time','date'];for(var i=0;i<keys.length;i++){var id=keys[i];document.getElementById(id).style.fontSize=values[id]+'vw';document.getElementById('v'+id).innerHTML=Math.round(values[id]*10)/10+' vw';}document.getElementById('clock').style.paddingTop=values.gap+'vh';document.getElementById('clock').style.paddingBottom=values.gap+'vh';document.getElementById('vgap').innerHTML=values.gap+' %';}
- window.change=function(id,step){var min=id==='gap'?0:2,max=id==='gap'?18:32;var delta=id==='gap'?1:0.5;values[id]=Math.max(min,Math.min(max,Math.round((values[id]+step*delta)*10)/10));apply();persist();};
- window.showSettings=function(){document.getElementById('panel').style.display='block';};
- window.hideSettings=function(){document.getElementById('panel').style.display='none';};
- window.resetSettings=function(){for(var k in defaults){if(defaults.hasOwnProperty(k))values[k]=defaults[k];}apply();persist();};
- var days=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
- var months=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
- function cap(s){return s.charAt(0).toUpperCase()+s.substr(1);}
- function two(n){return n<10?'0'+n:''+n;}
- function tick(){var d=new Date(),h=d.getHours();document.getElementById('day').innerHTML=cap(days[d.getDay()]);document.getElementById('period').innerHTML=h<12?'Matin':(h<18?'Après-midi':'Soir');document.getElementById('time').innerHTML=two(h)+':'+two(d.getMinutes());document.getElementById('date').innerHTML=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();}
- apply();tick();setInterval(tick,1000);
+  var time = document.getElementById('time');
+  var status = document.getElementById('status');
+  function tick(){var d=new Date();var h=d.getHours(),m=d.getMinutes();time.innerHTML=(h<10?'0':'')+h+':'+(m<10?'0':'')+m;}
+  tick();setInterval(tick,1000);
+  if(window.applicationCache){
+    var cache=window.applicationCache;
+    function state(){
+      var s=cache.status;
+      if(s===0){status.innerHTML='Cache non disponible';}
+      else if(s===1){status.innerHTML='Cache hors connexion pret';}
+      else if(s===2||s===3){status.innerHTML='Enregistrement en cours...';}
+      else if(s===4){status.innerHTML='Mise a jour prete';}
+      else if(s===5){status.innerHTML='Cache ancien utilise';}
+    }
+    cache.addEventListener('cached',function(){status.innerHTML='Cache hors connexion pret';},false);
+    cache.addEventListener('noupdate',state,false);
+    cache.addEventListener('updateready',state,false);
+    cache.addEventListener('downloading',state,false);
+    cache.addEventListener('error',function(){status.innerHTML='Erreur de mise en cache';},false);
+    state();
+  }else{status.innerHTML='Cache non pris en charge';}
 })();
 </script>
 </body>
