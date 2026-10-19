@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="fr"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Horloge iPad 4&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>html, body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #000;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: Helvetica, Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: -webkit-box;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: -ms-flexbox;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-box-orient: vertical;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-box-direction: normal;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-ms-flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-box-pack: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-ms-flex-pack: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-box-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-ms-flex-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-transition: background-color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background-color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#jour-semaine {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 60px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#moment {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 35px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#heure {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 110px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 15px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#date-complete {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: color 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="jour-semaine"&gt;--&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="moment"&gt;--&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="heure"&gt;--:--&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="date-complete"&gt;--&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function padZero(n) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return n &lt; 10 ? '0' + n : n;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function mettreAJourHorloge() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var maintenant = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var moisNoms = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>var jourSemaine = jours[maintenant.getDay()];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var heureNum = maintenant.getHours();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var minuteNum = maintenant.getMinutes();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>var moment = "Matin";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (heureNum &gt;= 12 &amp;&amp; heureNum &lt; 18) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>moment = "Après-midi";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (heureNum &gt;= 18 &amp;&amp; heureNum &lt; 22) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>moment = "Soir";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (heureNum &gt;= 22 || heureNum &lt; 5) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>moment = "Nuit";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>var heures = padZero(heureNum);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var minutes = padZero(minuteNum);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var heureTexte = heures + ":" + minutes;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>var jourMois = maintenant.getDate();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var mois = moisNoms[maintenant.getMonth()];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var annee = maintenant.getFullYear();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var dateComplete = jourMois + " " + mois + " " + annee;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Injection du texte</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('jour-semaine').innerHTML = jourSemaine;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('moment').innerHTML = moment;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('heure').innerHTML = heureTexte;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('date-complete').innerHTML = dateComplete;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// --- GESTION DES COULEURS SELON L'HEURE ---</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var bodyStyle = document.body.style;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var jourStyle = document.getElementById('jour-semaine').style;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var momentStyle = document.getElementById('moment').style;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var heureStyle = document.getElementById('heure').style;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var dateStyle = document.getElementById('date-complete').style;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (heureNum &gt;= 6 &amp;&amp; heureNum &lt; 12) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// MATIN</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bodyStyle.backgroundColor = "#0b131e";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>jourStyle.color = "#ffffff";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>momentStyle.color = "#8ab4f8";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heureStyle.color = "#ffffff";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dateStyle.color = "#9aa0a6";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>else if (heureNum &gt;= 12 &amp;&amp; heureNum &lt; 18) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// APRÈS-MIDI</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bodyStyle.backgroundColor = "#000000";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>jourStyle.color = "#ffffff";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>momentStyle.color = "#f28b82";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heureStyle.color = "#ffffff";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dateStyle.color = "#bdc1c6";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>else if (heureNum &gt;= 18 &amp;&amp; heureNum &lt; 22) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// SOIR</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bodyStyle.backgroundColor = "#140a00";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>jourStyle.color = "#ffd59f";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>momentStyle.color = "#ffb74d";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heureStyle.color = "#ffe0b2";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dateStyle.color = "#b08d79";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// NUIT (22h à 6h)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bodyStyle.backgroundColor = "#050000";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>jourStyle.color = "#5c1d1d";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>momentStyle.color = "#822626";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heureStyle.color = "#a83232";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dateStyle.color = "#421515";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>mettreAJourHorloge();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setInterval(mettreAJourHorloge, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
